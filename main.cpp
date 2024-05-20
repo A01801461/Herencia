@@ -1,37 +1,54 @@
+// HERENCIA
+// todo esta en archivo main, por practicidad
+
 // librerias
 #include <iostream>
 using std::cout;
 using std::endl;
 
-// clase Padre (Super clase)
+// Clase Padre (Superclase)
 class Padre
 {
-    public:
-    int x = 5;
+protected: // Haciendo 'x' accesible para las clases derivadas
+    int x;
 
+public:
     void imprimir()
     {
-        cout << "El valor de x: " << x << endl;
+        cout << "El valor de x en Padre: " << x << endl;
+    }
+
+    // Constructor con parámetro
+    Padre(int x1)
+    {
+        x = x1 + 5;
     }
 };
 
-// clase hija (Sub clase)
-class Hija : Padre // hereda todo de la clase padre
+// Clase Hija (Subclase)
+class Hija : public Padre // Herencia pública
 {
-    public:
-    void imprimir()
+private:
+    int y;
+
+public:
+    void imprimir() // Sobreescribiendo el método imprimir
     {
-        cout << "El valor de x: " << x << endl;
+        Padre::imprimir(); // Llamada al método imprimir de Padre
+        cout << "El valor de y en Hija: " << y << endl;
+    }
+
+    // Constructor con parámetros para Hija y Padre
+    Hija(int x1, int y1) : Padre(x1) // Inicializa Padre
+    {
+        y = y1;
     }
 };
 
-// Funcion main
+// Función main
 int main()
 {
-    Hija h;
-    h.imprimir();
-    //Padre p;
-    //p.x = 10;
-    //p.imprimir();
+    Hija h(10, 20); // Instancia de Hija con parámetros
+    h.imprimir(); // Llama a imprimir que muestra valores de 'x' y 'y'
     return 0;
-};
+}
